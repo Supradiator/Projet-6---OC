@@ -1,10 +1,6 @@
 
-//recup des objets du "works"
-const reponse = await fetch("http://localhost:5678/api/works")
-const projets = await reponse.json()
-
 //afficher les projets
-async function afficherProjects() {
+function afficherProjets(projets) {
 
     let gallery = document.querySelector(".gallery")
     gallery.innerHTML = ""
@@ -22,3 +18,5 @@ async function afficherProjects() {
         gallery.appendChild(article)
     }
 }
+
+export {afficherProjets}
