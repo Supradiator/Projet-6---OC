@@ -208,3 +208,14 @@ footer nav ul {
 	color: white !important;
 	background-color: #1D6154;
 }
+
+/* code de la page login */
+
+a {
+	text-decoration: none;
+}
+
+.mdpOublie {
+	text-align: center;
+	text-decoration: underline;
+}
