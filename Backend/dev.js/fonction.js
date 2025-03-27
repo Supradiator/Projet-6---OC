@@ -19,4 +19,27 @@ function afficherProjets(projets) {
     }
 }
 
-export {afficherProjets}
+//filtres
+
+function filtrerProjets(idFiltres, projets) {
+    let projetsFiltres
+
+    if (idFiltres === 0) {
+        projetsFiltres = projets
+    } else {
+        projetsFiltres = projets.filter(projets => projets.categoryId === idFiltres)
+    }
+    document.querySelector(".gallery").innerHTML = ""
+    afficherProjets(projetsFiltres)
+}
+
+//changer le bouton selectionne
+
+function btnSelectionne(idFiltres, boutonsFiltres) {
+    for (let i = 0; i < boutonsFiltres.length; i++) {
+        boutonsFiltres[i].classList.remove("btnSelectionne")
+    }
+    boutonsFiltres[idFiltres].classList.add("btnSelectionne")
+}
+
+export {afficherProjets, filtrerProjets, btnSelectionne}
