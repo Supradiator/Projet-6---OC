@@ -19,4 +19,3 @@ boutonsFiltres.forEach(boutons => {
     filtrerProjets(idFiltres, projets) 
     })
 })
-
