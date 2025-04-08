@@ -1,21 +1,21 @@
 
 //importation des fonctions 
-import { afficherProjets, filtrerProjets, btnSelectionne } from "./fonction.js"
+import { afficherProjets, afficherBoutons, filtrerProjets, btnSelectionne, afficherInterfaceDeconnectee, afficherInterfaceConnectee } from "./fonction.js"
 import { fetchProjets } from "./api.js"
 
 //recup des donnes de l'api et affichage des projets
 
 let projets = await fetchProjets()
 afficherProjets(projets)
+afficherBoutons(projets)
 
-// recup du clic user pour filtrer les projets et gerer les boutons
+// verifier la validité du token, si ok : afficher la page en mode edition, sinon : afficher page normale
+console.log("preload")
 
-const boutonsFiltres = document.querySelectorAll(".filtres button")
-boutonsFiltres.forEach(boutons => {
-    boutons.addEventListener("click", (event) => {
-        let idFiltres = Number(event.target.id)
-    
-    btnSelectionne(idFiltres, boutonsFiltres)
-    filtrerProjets(idFiltres, projets) 
-    })
-})
+const token = localStorage.getItem("token")
+console.log("token", token)
+if (token) {
+    afficherInterfaceConnectee()
+} else {
+    afficherInterfaceDeconnectee()
+}

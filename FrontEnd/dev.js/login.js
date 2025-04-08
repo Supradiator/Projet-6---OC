@@ -1,18 +1,17 @@
 // login utilisateur et stockage token en local
 
 document.addEventListener("DOMContentLoaded", () => {
-    const form = document.getElementById("contact");
+    const form = document.getElementById("contact")
 
     form.addEventListener("submit", function(event) {
         event.preventDefault();
-        console.log("Formulaire soumis !"); // <-- Vérifie si ce message apparaît
 
-        const email = document.getElementById("email").value;
-        const password = document.getElementById("password").value;
+        const email = document.getElementById("email").value
+        const password = document.getElementById("password").value
 
-        console.log("Données envoyées :", { email, password });
+        console.log("Envoi des identifiants :", email, password)
 
-        fetch("http://localhost:5678/api/users/login", { 
+        fetch("http://localhost:5678/api/users/login", {
             headers: {
                 "Accept": "application/json",
                 "Content-Type": "application/json"
@@ -20,16 +19,19 @@ document.addEventListener("DOMContentLoaded", () => {
             method: "POST",
             body: JSON.stringify({ email, password })
         })
-        .then(response => response.json()) 
+        .then(response => {
+            return response.json()
+        })
         .then(data => {
-            console.log("Réponse du serveur :", data);
+            console.log("Données reçues :", data)
             if (data.token) {
-                localStorage.setItem("authToken", data.token);
-                window.location.href = "/FrontEnd/index.html";
+                localStorage.setItem("token", data.token)
+                window.location.href = "index.html"
             } else {
-                alert("Identifiants incorrects !");
+                console.error("Erreur : Aucun token reçu")
             }
         })
-        .catch(error => console.error("Erreur :", error));
-    });
-});
+        .catch(error => console.error("Erreur :", error))
+    })
+})
+
