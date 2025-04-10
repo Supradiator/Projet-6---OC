@@ -110,4 +110,43 @@ function afficherInterfaceConnectee() {
     })
 }
 
-export {afficherProjets, afficherBoutons, filtrerProjets, btnSelectionne, afficherInterfaceDeconnectee, afficherInterfaceConnectee}
+// recuperer les img de la gallery pour les afficher dans la galerie du mode edition
+
+function afficherGalleryEdition() {
+    const galleryPrincipale = document.querySelector(".gallery")
+    const galleryModale = document.querySelector(".galleryModale")
+
+    const articles = galleryPrincipale.querySelectorAll("article")
+
+    galleryModale.innerHTML = ""
+
+    articles.forEach(article => {
+        const img = article.querySelector("img")
+        if (img){
+            const nouvelleImage = document.createElement("img")
+            nouvelleImage.src = img.src
+            nouvelleImage.alt = img.alt
+            galleryModale.appendChild(nouvelleImage)
+        }
+    })
+}
+
+// fonction pour fermer la modale depuis la croix et depuis l'overlay
+
+function closeModaleX(modale) {
+    const btnClose = document.querySelector(".close")
+    btnClose.addEventListener("click", () => {
+        modale.style.display = "none"
+    })
+}
+
+function closeModaleOverlay(modale) {
+    const modaleContent = document.querySelector(".modale")
+    modale.addEventListener("click", (event) => {
+        if (event.target === modale) {
+            modale.style.display = "none"
+        }
+    })
+}
+
+export {afficherProjets, afficherBoutons, filtrerProjets, btnSelectionne, afficherInterfaceDeconnectee, afficherInterfaceConnectee, afficherGalleryEdition, closeModaleX, closeModaleOverlay}
