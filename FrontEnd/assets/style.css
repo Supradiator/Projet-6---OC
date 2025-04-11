@@ -285,6 +285,8 @@ a:hover {
 	transform: translate(-50%, -50%);
 	padding: 40px;
 	border-radius: 10px;
+	width: 50%;
+	height: 50%;
 }
 
 .modale h3 {
@@ -313,4 +315,73 @@ a:hover {
 .galleryModale img {
 	width: 20%;
 	height: auto;
+}
+
+/* style pour la modale du formulaire */
+
+.boxAddPics {
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background-color: rgba(0, 0, 0, 0.4);
+	display: none;
+}
+
+.modaleAddPics {
+	background-color: white;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	padding: 40px;
+	border-radius: 10px;
+	width: 50%;
+	height: 50%;
+}
+
+.modaleAddPics h3 {
+	font-family: 'Work Sans';
+	font-size: 26px;
+	text-align: center;
+}
+
+.modaleAddPics form {
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+}
+
+.addPics {
+	background-color: #E8F1F6;
+	color: #B9C5CC;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	text-align: center;
+	padding: 10px 25%;
+	margin-top: 30px;
+	
+}
+
+.addPics i {
+	font-size: 76px;
+}
+
+.addPics button {
+	margin: 10px;
+	font-family: 'Work Sans';
+	font-size: 14px;
+	color: #306685;
+	background-color: #CBD6DC;
+	border: none;
+	border-radius: 60px ;
+	padding: 10px 30px;
+}
+
+.addPics p {
+	font-family: 'Work Sans';
+	font-size: 10px;
+	color: #444444;
 }

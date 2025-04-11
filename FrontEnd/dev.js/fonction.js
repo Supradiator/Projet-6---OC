@@ -134,7 +134,7 @@ function afficherGalleryEdition() {
 // fonction pour fermer la modale depuis la croix et depuis l'overlay
 
 function closeModaleX(modale) {
-    const btnClose = document.querySelector(".close")
+    let btnClose = document.querySelector(".close")
     btnClose.addEventListener("click", () => {
         modale.style.display = "none"
     })

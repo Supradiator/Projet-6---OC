@@ -34,3 +34,17 @@ boutonModifier.addEventListener("click", () => {
 
 closeModaleX(modale)
 closeModaleOverlay(modale)
+
+// affichage modale du formulaire
+
+const boutonAddPics = document.querySelector(".btnAddPics")
+const modaleAddPics = document.querySelector(".boxAddPics")
+
+boutonAddPics.addEventListener("click", () => {
+    modaleAddPics.style.display = "block"
+})
+
+// fermer la modale du formulaire avec la croix et l'overlay
+
+closeModaleX(modaleAddPics)
+closeModaleOverlay(modaleAddPics)
