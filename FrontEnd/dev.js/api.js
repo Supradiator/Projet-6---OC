@@ -5,4 +5,11 @@ const reponse = await fetch("http://localhost:5678/api/works")
     return await reponse.json()
 }
 
-export { fetchProjets }
+// recup des catégories
+
+async function fetchCategory() {
+    const reponse = await fetch("http://localhost:5678/api/categories")
+    return await reponse.json()
+}
+
+export { fetchProjets, fetchCategory }

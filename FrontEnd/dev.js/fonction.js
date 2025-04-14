@@ -1,4 +1,3 @@
-
 //afficher les projets
 function afficherProjets(projets) {
 
@@ -20,16 +19,11 @@ function afficherProjets(projets) {
 }
 
 // Afficher les boutons
-function afficherBoutons(projets) {
+function afficherBoutons(projets, categories) {
     const btnFiltres = document.querySelector(".filtres")
     btnFiltres.innerHTML = ""
 
     const tousLesBoutons = []
-
-    const nomsCategories = projets.map(p => p.category.name)
-    const categoriesUniques = nomsCategories.filter((nom, index) => {
-        return nomsCategories.indexOf(nom) === index
-    })
 
     const boutonTous = document.createElement("button")
     boutonTous.textContent = "Tous"
@@ -42,14 +36,13 @@ function afficherBoutons(projets) {
     btnFiltres.appendChild(boutonTous)
     tousLesBoutons.push(boutonTous)
 
-    categoriesUniques.forEach(nom => {
+    categories.forEach(categorie => {
         const bouton = document.createElement("button")
-        bouton.textContent = nom
-        const categoryId = projets.find(p => p.category.name === nom).categoryId
-        bouton.dataset.id = categoryId
+        bouton.textContent = categorie.name
+        bouton.dataset.id = categorie.id
 
         bouton.addEventListener("click", () => {
-            filtrerProjets(categoryId, projets)
+            filtrerProjets(categorie.id, projets)
             btnSelectionne(bouton, tousLesBoutons)
         })
 

@@ -385,3 +385,9 @@ a:hover {
 	font-size: 10px;
 	color: #444444;
 }
+
+.input-error {
+    border: 1px solid red;
+    background-color: #ffe5e5;
+    color: red;
+}

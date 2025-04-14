@@ -1,13 +1,17 @@
 
 //importation des fonctions 
 import { afficherProjets, afficherBoutons, afficherInterfaceDeconnectee, afficherInterfaceConnectee, afficherGalleryEdition, closeModaleX, closeModaleOverlay } from "./fonction.js"
-import { fetchProjets } from "./api.js"
+import { fetchProjets, fetchCategory } from "./api.js"
 
 //recup des donnes de l'api et affichage des projets
 
 let projets = await fetchProjets()
 afficherProjets(projets)
-afficherBoutons(projets)
+
+// recup des categories et affichage des boutons
+
+let categories = await fetchCategory()
+afficherBoutons(projets, categories)
 
 // verifier la validité du token, si ok : afficher la page en mode edition, sinon : afficher page normale
 console.log("preload")
