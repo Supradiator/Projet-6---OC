@@ -277,7 +277,7 @@ a:hover {
 	display: none;
 }
 
-.modale {
+.boxModale {
 	background-color: white;
 	position: absolute;
 	top: 50%;
@@ -285,8 +285,17 @@ a:hover {
 	transform: translate(-50%, -50%);
 	padding: 40px;
 	border-radius: 10px;
-	width: 50%;
-	height: 50%;
+	width: 30%;
+	height: 70%;
+}
+
+.modale {
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	align-items: center;
+	height: 100%;
+	width: 100%;
 }
 
 .modale h3 {
@@ -306,14 +315,29 @@ a:hover {
 	padding: 10px 20px;
 }
 
-.modale a {
+.close {
+	font-size: 20px;
 	position: absolute;
-	top: 10%;
-	right: 10%;
+	top: 30px;
+	right: 30px;
 }
 
-.galleryModale img {
-	width: 20%;
+.galleryModale {
+	width: 100%;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: flex-start;
+	gap: 10px;
+	border-bottom: solid 1px #B3B3B3;
+	padding: 60px 0px;
+}
+
+.galleryModale article {
+	width: 18%;
+}
+
+.galleryModale article img {
+	width: 100%;
 	height: auto;
 }
 

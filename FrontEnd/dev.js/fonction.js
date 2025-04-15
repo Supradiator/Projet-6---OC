@@ -106,22 +106,34 @@ function afficherInterfaceConnectee() {
 // recuperer les img de la gallery pour les afficher dans la galerie du mode edition
 
 function afficherGalleryEdition() {
-    const galleryPrincipale = document.querySelector(".gallery")
-    const galleryModale = document.querySelector(".galleryModale")
+    const galleryPrincipale = document.querySelector(".gallery");
+    const galleryModale = document.querySelector(".galleryModale");
 
-    const articles = galleryPrincipale.querySelectorAll("article")
+    const articles = galleryPrincipale.querySelectorAll("article");
 
-    galleryModale.innerHTML = ""
+    galleryModale.innerHTML = "";
 
     articles.forEach(article => {
-        const img = article.querySelector("img")
-        if (img){
-            const nouvelleImage = document.createElement("img")
-            nouvelleImage.src = img.src
-            nouvelleImage.alt = img.alt
-            galleryModale.appendChild(nouvelleImage)
+        const img = article.querySelector("img");
+        if (img) {
+            // Crée un nouvel article
+            const nouvelArticle = document.createElement("article");
+
+            // Crée et ajoute l'image
+            const nouvelleImage = document.createElement("img");
+            nouvelleImage.src = img.src;
+            nouvelleImage.alt = img.alt;
+            nouvelArticle.appendChild(nouvelleImage);
+
+            // Crée et ajoute une icône Font Awesome
+            const icone = document.createElement("i");
+            icone.classList.add("fa-solid", "fa-trash", "icone-supprimer"); // classes FA + perso
+            nouvelArticle.appendChild(icone);
+
+            // Ajoute l'article à la galerie modale
+            galleryModale.appendChild(nouvelArticle);
         }
-    })
+    });
 }
 
 // fonction pour fermer la modale depuis la croix et depuis l'overlay
