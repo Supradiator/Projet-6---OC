@@ -106,32 +106,29 @@ function afficherInterfaceConnectee() {
 // recuperer les img de la gallery pour les afficher dans la galerie du mode edition
 
 function afficherGalleryEdition() {
-    const galleryPrincipale = document.querySelector(".gallery");
-    const galleryModale = document.querySelector(".galleryModale");
+    const galleryPrincipale = document.querySelector(".gallery")
+    const galleryModale = document.querySelector(".galleryModale")
 
-    const articles = galleryPrincipale.querySelectorAll("article");
+    const articles = galleryPrincipale.querySelectorAll("article")
 
-    galleryModale.innerHTML = "";
+    galleryModale.innerHTML = ""
 
     articles.forEach(article => {
-        const img = article.querySelector("img");
+        const img = article.querySelector("img")
         if (img) {
-            // Crée un nouvel article
-            const nouvelArticle = document.createElement("article");
 
-            // Crée et ajoute l'image
-            const nouvelleImage = document.createElement("img");
-            nouvelleImage.src = img.src;
-            nouvelleImage.alt = img.alt;
-            nouvelArticle.appendChild(nouvelleImage);
+            const nouvelArticle = document.createElement("article")
 
-            // Crée et ajoute une icône Font Awesome
-            const icone = document.createElement("i");
-            icone.classList.add("fa-solid", "fa-trash", "icone-supprimer"); // classes FA + perso
-            nouvelArticle.appendChild(icone);
+            const nouvelleImage = document.createElement("img")
+            nouvelleImage.src = img.src
+            nouvelleImage.alt = img.alt
+            nouvelArticle.appendChild(nouvelleImage)
 
-            // Ajoute l'article à la galerie modale
-            galleryModale.appendChild(nouvelArticle);
+            const icone = document.createElement("i")
+            icone.classList.add("fa-solid", "fa-trash-can", "icone-supprimer")
+            nouvelArticle.appendChild(icone)
+
+            galleryModale.appendChild(nouvelArticle)
         }
     });
 }
@@ -154,4 +151,45 @@ function closeModaleOverlay(modale) {
     })
 }
 
-export {afficherProjets, afficherBoutons, filtrerProjets, btnSelectionne, afficherInterfaceDeconnectee, afficherInterfaceConnectee, afficherGalleryEdition, closeModaleX, closeModaleOverlay}
+function choisirPhoto() {
+    const fileInput = document.getElementById("fileChoosePics");
+    const customButton = document.getElementById("btnChoosePics");
+    const addPicsDiv = document.querySelector(".addPics");
+  
+    customButton.addEventListener("click", (e) => {
+      e.preventDefault(); // évite les rechargements
+      fileInput.click();
+    });
+  
+    fileInput.addEventListener("change", () => {
+      if (fileInput.files.length > 0) {
+        const file = fileInput.files[0];
+  
+        if (file.type.startsWith("image/")) {
+          const reader = new FileReader();
+  
+          reader.onload = (event) => {
+            // Vider tout le contenu du conteneur
+            addPicsDiv.innerHTML = "";
+  
+            // Créer et configurer l’image
+            const img = document.createElement("img");
+            img.src = event.target.result;
+            img.alt = "Aperçu de l’image";
+            img.style.width = "100%";
+            img.style.height = "100%";
+            img.style.objectFit = "cover";
+            img.style.borderRadius = "8px";
+            img.style.display = "block";
+  
+            // Ajouter l'image au conteneur
+            addPicsDiv.appendChild(img);
+          };
+  
+          reader.readAsDataURL(file);
+        }
+      }
+    });
+  }
+
+export {afficherProjets, afficherBoutons, filtrerProjets, btnSelectionne, afficherInterfaceDeconnectee, afficherInterfaceConnectee, afficherGalleryEdition, closeModaleX, closeModaleOverlay, choisirPhoto}

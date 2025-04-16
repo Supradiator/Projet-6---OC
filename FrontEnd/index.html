@@ -52,28 +52,39 @@
 		<div class="box">
 			<div class="boxModale">
 				<div class="modale">
+					<div class="modaleNav">
+						<a href="#"><i class="close fa-solid fa-xmark"></i></a>
+					</div>
 					<h3>Galerie photo</h3>
 					<div class="galleryModale">
 					</div>
 					<button class="btnAddPics">Ajouter une photo</button>
-					<a href="#"><i class="close fa-solid fa-xmark"></i></a>
 				</div>
 			</div>
 		</div>
 		<div class="boxAddPics">
-			<div class="modaleAddPics">
-				<h3>Ajout photo</h3>
-				<form>
-					<div class="addPics">
-						<i class="fa-regular fa-image"></i>
-						<button>+ Ajouter photo</button>
-						<p>jpg, png : 4mo max</p>
+			<div class="boxModaleAddPics">
+				<div class="modaleAddPics">
+					<div class="modaleNav">
+						<a href="#"><i class="close fa-solid fa-xmark"></i></a>
 					</div>
-					<label for="titre">Titre</label><br>
-					<label for="categorie">Catégorie</label><br>
-					<input type="submit">
-				</form>
-				<a href="#"><i class="close fa-solid fa-xmark"></i></a>
+					<h3>Ajout photo</h3>
+					<form>
+						<div class="addPics">
+							<i class="fa-regular fa-image"></i>
+							<button type="button" id="btnChoosePics">+ Ajouter photo</button>
+							<input type="file" id="fileChoosePics" accept="image/jpg, image/png">
+							<p>jpg, png : 4mo max</p>
+						</div>
+						<label for="titre">Titre</label>
+						<input type="text" name="titre" id="titre">
+						<label for="selectCategory">Catégorie</label>
+						<select name="SelectCategory" id="selectCategory">
+						</select>
+						<div class="trait"></div>
+						<button type="submit" class="btnSubmit">Valider</button>
+					</form>
+				</div>
 			</div>
 		</div>
 		<div class="filtres">

@@ -1,6 +1,6 @@
 
 //importation des fonctions 
-import { afficherProjets, afficherBoutons, afficherInterfaceDeconnectee, afficherInterfaceConnectee, afficherGalleryEdition, closeModaleX, closeModaleOverlay } from "./fonction.js"
+import { afficherProjets, afficherBoutons, afficherInterfaceDeconnectee, afficherInterfaceConnectee, afficherGalleryEdition, closeModaleX, closeModaleOverlay, choisirPhoto } from "./fonction.js"
 import { fetchProjets, fetchCategory } from "./api.js"
 
 //recup des donnes de l'api et affichage des projets
@@ -23,6 +23,8 @@ if (token) {
 } else {
     afficherInterfaceDeconnectee()
 }
+
+// PARTIE MODALE ---------------------------------------------------------------------------------------------------------------------------------------------------------
 
 // affichage modale et galerie de la modale
 
@@ -52,3 +54,7 @@ boutonAddPics.addEventListener("click", () => {
 
 closeModaleX(modaleAddPics)
 closeModaleOverlay(modaleAddPics)
+
+// selectionner une photo pour l'ajouter
+
+choisirPhoto()
