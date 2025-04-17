@@ -1,3 +1,5 @@
+import { fetchCategory } from "./api.js"
+
 //afficher les projets
 function afficherProjets(projets) {
 
@@ -130,7 +132,7 @@ function afficherGalleryEdition() {
 
             galleryModale.appendChild(nouvelArticle)
         }
-    });
+    })
 }
 
 // fonction pour fermer la modale depuis la croix et depuis l'overlay
@@ -152,44 +154,134 @@ function closeModaleOverlay(modale) {
 }
 
 function choisirPhoto() {
-    const fileInput = document.getElementById("fileChoosePics");
-    const customButton = document.getElementById("btnChoosePics");
-    const addPicsDiv = document.querySelector(".addPics");
+    const fileInput = document.getElementById("fileChoosePics")
+    const customButton = document.getElementById("btnChoosePics")
+    const addPicsDiv = document.querySelector(".addPics")
   
-    customButton.addEventListener("click", (e) => {
-      e.preventDefault(); // évite les rechargements
-      fileInput.click();
-    });
+    customButton.addEventListener("click", (event) => {
+      event.preventDefault()
+      fileInput.click()
+    })
   
     fileInput.addEventListener("change", () => {
       if (fileInput.files.length > 0) {
-        const file = fileInput.files[0];
+        const file = fileInput.files[0]
   
         if (file.type.startsWith("image/")) {
-          const reader = new FileReader();
+          const reader = new FileReader()
   
           reader.onload = (event) => {
-            // Vider tout le contenu du conteneur
-            addPicsDiv.innerHTML = "";
+
+            addPicsDiv.innerHTML = ""
   
-            // Créer et configurer l’image
-            const img = document.createElement("img");
-            img.src = event.target.result;
-            img.alt = "Aperçu de l’image";
-            img.style.width = "100%";
-            img.style.height = "100%";
-            img.style.objectFit = "cover";
-            img.style.borderRadius = "8px";
-            img.style.display = "block";
+            const img = document.createElement("img")
+            img.src = event.target.result
+            img.alt = "Aperçu de l’image"
+            img.style.objectFit = "cover"
+ 
+            addPicsDiv.appendChild(img)
+          }
   
-            // Ajouter l'image au conteneur
-            addPicsDiv.appendChild(img);
-          };
-  
-          reader.readAsDataURL(file);
+          reader.readAsDataURL(file)
         }
       }
-    });
+    })
   }
 
-export {afficherProjets, afficherBoutons, filtrerProjets, btnSelectionne, afficherInterfaceDeconnectee, afficherInterfaceConnectee, afficherGalleryEdition, closeModaleX, closeModaleOverlay, choisirPhoto}
+//   afficher les categories dans la modale pour ajouter une photo
+
+async function CategoryOptions() {
+    const select = document.getElementById('selectCategory')
+    const categories = await fetchCategory()
+
+    const defaultOption = document.createElement('option')
+    defaultOption.value = ""
+    defaultOption.textContent = ""
+    select.appendChild(defaultOption)
+
+    categories.forEach(category => {
+        const option = document.createElement('option')
+        option.value = category.id
+        option.textContent = category.name
+        select.appendChild(option)
+    })
+}
+
+// recuperer les inputs et envoyer le formulaire a l'api
+
+function gererValidationFormulaire(projets) {
+    const inputImage = document.getElementById("fileChoosePics")
+    const inputTitre = document.getElementById("titre")
+    const selectCategorie = document.getElementById("selectCategory")
+    const btnSubmit = document.getElementById("btnSubmit")
+    const form = document.getElementById("formAddPics")
+    const modaleAddPics = document.querySelector(".boxAddPics")
+
+    function verifierChamps() {
+        if (inputImage.files.length > 0 && inputTitre.value.trim() !== "" && selectCategorie.value !== "") {
+            btnSubmit.disabled = false
+            btnSubmit.classList.add("active")
+        } else {
+            btnSubmit.disabled = true
+            btnSubmit.classList.remove("active")
+        }
+    }
+
+    inputImage.addEventListener("change", verifierChamps)
+    inputTitre.addEventListener("input", verifierChamps)
+    selectCategorie.addEventListener("change", verifierChamps)
+
+    btnSubmit.addEventListener("click", async (event) => {
+        event.preventDefault()
+
+        const image = inputImage.files[0]
+        const titre = inputTitre.value.trim()
+        const categoryId = parseInt(selectCategorie.value)
+        const token = localStorage.getItem("token")
+
+        const formData = new FormData()
+        formData.append("image", image)
+        formData.append("title", titre)
+        formData.append("category", categoryId)
+
+        try {
+            const reponse = await fetch("http://localhost:5678/api/works", {
+                method: "POST",
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                },
+                body: formData
+            })
+
+            if (reponse.ok) {
+                const nouveauProjet = await reponse.json()
+
+                projets.push(nouveauProjet)
+                afficherProjets(projets)
+                afficherGalleryEdition()
+
+                // Reset du formulaire + aperçu + bouton
+                form.reset()
+                document.querySelector(".addPics").innerHTML = `
+                    <i class="fa-regular fa-image"></i>
+                    <button id="btnChoosePics">+ Ajouter photo</button>
+                    <p>jpg, png : 4mo max</p>
+                    <input type="file" id="fileChoosePics" accept="image/*" style="display: none" />
+                `
+                choisirPhoto()  // Réactive le bouton "Ajouter photo"
+                verifierChamps()
+
+                // Fermer la modale
+                modaleAddPics.style.display = "none"
+
+            } else {
+                alert("Erreur lors de l'ajout du projet. Veuillez vérifier les champs ou le token.")
+            }
+        } catch (error) {
+            console.error("Erreur réseau :", error)
+            alert("Une erreur réseau est survenue.")
+        }
+    })
+}
+
+export {afficherProjets, afficherBoutons, filtrerProjets, btnSelectionne, afficherInterfaceDeconnectee, afficherInterfaceConnectee, afficherGalleryEdition, closeModaleX, closeModaleOverlay, choisirPhoto, CategoryOptions, gererValidationFormulaire}

@@ -1,6 +1,6 @@
 
 //importation des fonctions 
-import { afficherProjets, afficherBoutons, afficherInterfaceDeconnectee, afficherInterfaceConnectee, afficherGalleryEdition, closeModaleX, closeModaleOverlay, choisirPhoto } from "./fonction.js"
+import { afficherProjets, afficherBoutons, afficherInterfaceDeconnectee, afficherInterfaceConnectee, afficherGalleryEdition, closeModaleX, closeModaleOverlay, choisirPhoto, CategoryOptions, gererValidationFormulaire } from "./fonction.js"
 import { fetchProjets, fetchCategory } from "./api.js"
 
 //recup des donnes de l'api et affichage des projets
@@ -58,3 +58,11 @@ closeModaleOverlay(modaleAddPics)
 // selectionner une photo pour l'ajouter
 
 choisirPhoto()
+
+// afficher les categories dasn le selecteur
+
+CategoryOptions()
+
+// verifier que le formulaire est bien rempli, puis envoie vers l'api
+
+gererValidationFormulaire(projets)
