@@ -6,6 +6,12 @@ import { fetchProjets, fetchCategory } from "./api.js"
 //recup des donnes de l'api et affichage des projets
 
 let projets = await fetchProjets()
+async function majProjets() {
+    projets = await fetchProjets()
+    afficherProjets(projets)
+    afficherGalleryEdition(projets)
+}
+
 afficherProjets(projets)
 
 // recup des categories et affichage des boutons
@@ -33,7 +39,7 @@ const modale = document.querySelector(".box")
 
 boutonModifier.addEventListener("click", () => {
     modale.style.display = "block"
-    afficherGalleryEdition()
+    afficherGalleryEdition(projets)
 })
 
 // fermer la modale avec la croix et l'overlay
@@ -66,3 +72,5 @@ CategoryOptions()
 // verifier que le formulaire est bien rempli, puis envoie vers l'api
 
 gererValidationFormulaire(projets)
+
+export { majProjets }

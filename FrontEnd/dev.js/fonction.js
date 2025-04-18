@@ -1,4 +1,5 @@
-import { fetchCategory } from "./api.js"
+import { fetchCategory, fetchProjets } from "./api.js"
+import { majProjets } from "./script.js"
 
 //afficher les projets
 function afficherProjets(projets) {
@@ -105,34 +106,60 @@ function afficherInterfaceConnectee() {
     })
 }
 
-// recuperer les img de la gallery pour les afficher dans la galerie du mode edition
 
-function afficherGalleryEdition() {
-    const galleryPrincipale = document.querySelector(".gallery")
+// recuperer les img de la gallery pour les afficher dans la galerie du mode edition avec une poubelle
+
+function afficherGalleryEdition(projets) {
     const galleryModale = document.querySelector(".galleryModale")
-
-    const articles = galleryPrincipale.querySelectorAll("article")
-
     galleryModale.innerHTML = ""
 
-    articles.forEach(article => {
-        const img = article.querySelector("img")
-        if (img) {
+    projets.forEach((projet, index) => {
+        const nouvelArticle = document.createElement("article")
 
-            const nouvelArticle = document.createElement("article")
+        const nouvelleImage = document.createElement("img")
+        nouvelleImage.src = projet.imageUrl
+        nouvelleImage.alt = projet.title
+        nouvelArticle.appendChild(nouvelleImage)
 
-            const nouvelleImage = document.createElement("img")
-            nouvelleImage.src = img.src
-            nouvelleImage.alt = img.alt
-            nouvelArticle.appendChild(nouvelleImage)
+        const icone = document.createElement("i")
+        icone.classList.add("fa-solid", "fa-trash-can", "icone-supprimer")
+        icone.dataset.id = projet.id
 
-            const icone = document.createElement("i")
-            icone.classList.add("fa-solid", "fa-trash-can", "icone-supprimer")
-            nouvelArticle.appendChild(icone)
+        icone.addEventListener("click", async () => {
+            await supprimerProjet(projet.id)
+            await majProjets()
+        })
 
-            galleryModale.appendChild(nouvelArticle)
-        }
+        nouvelArticle.appendChild(icone)
+        galleryModale.appendChild(nouvelArticle)
     })
+}
+
+// fonction fetch api pour delete un projet
+
+async function supprimerProjet(id) {
+    const token = localStorage.getItem("token")
+    if (!token) {
+        alert("Vous n'êtes pas connecté.")
+        return
+    }
+
+    try {
+        const response = await fetch(`http://localhost:5678/api/works/${id}`, {
+            method: "DELETE",
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        })
+
+        if (!response.ok) {
+            alert("Erreur lors de la suppression du projet.")
+        }
+
+    } catch (error) {
+        console.error("Erreur réseau :", error)
+        alert("Erreur réseau lors de la suppression.")
+    }
 }
 
 // fonction pour fermer la modale depuis la croix et depuis l'overlay
@@ -214,7 +241,7 @@ function gererValidationFormulaire(projets) {
     const inputTitre = document.getElementById("titre")
     const selectCategorie = document.getElementById("selectCategory")
     const btnSubmit = document.getElementById("btnSubmit")
-    const form = document.getElementById("formAddPics")
+    const form = document.querySelector(".formAddPics")
     const modaleAddPics = document.querySelector(".boxAddPics")
 
     function verifierChamps() {
@@ -258,7 +285,7 @@ function gererValidationFormulaire(projets) {
 
                 projets.push(nouveauProjet)
                 afficherProjets(projets)
-                afficherGalleryEdition()
+                afficherGalleryEdition(projets)
 
                 // Reset du formulaire + aperçu + bouton
                 form.reset()
