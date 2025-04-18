@@ -127,7 +127,7 @@ function afficherGalleryEdition(projets) {
 
         icone.addEventListener("click", async () => {
             await supprimerProjet(projet.id)
-            await majProjets()
+            await majProjets(projet.id)
         })
 
         nouvelArticle.appendChild(icone)
@@ -217,9 +217,8 @@ function choisirPhoto() {
 
 //   afficher les categories dans la modale pour ajouter une photo
 
-async function CategoryOptions() {
+    function CategoryOptions(categories) {
     const select = document.getElementById('selectCategory')
-    const categories = await fetchCategory()
 
     const defaultOption = document.createElement('option')
     defaultOption.value = ""

@@ -6,8 +6,8 @@ import { fetchProjets, fetchCategory } from "./api.js"
 //recup des donnes de l'api et affichage des projets
 
 let projets = await fetchProjets()
-async function majProjets() {
-    projets = await fetchProjets()
+async function majProjets(id) {
+    projets = projets.filter((projet) => projet.id !== id)
     afficherProjets(projets)
     afficherGalleryEdition(projets)
 }
@@ -17,6 +17,7 @@ afficherProjets(projets)
 // recup des categories et affichage des boutons
 
 let categories = await fetchCategory()
+CategoryOptions(categories)
 afficherBoutons(projets, categories)
 
 // verifier la validité du token, si ok : afficher la page en mode edition, sinon : afficher page normale
@@ -64,10 +65,6 @@ closeModaleOverlay(modaleAddPics)
 // selectionner une photo pour l'ajouter
 
 choisirPhoto()
-
-// afficher les categories dasn le selecteur
-
-CategoryOptions()
 
 // verifier que le formulaire est bien rempli, puis envoie vers l'api
 
