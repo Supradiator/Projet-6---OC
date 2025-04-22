@@ -97,7 +97,7 @@ function afficherInterfaceConnectee() {
     document.querySelector(".filtres").classList.add("hidden")
 
     const loginLink = document.getElementById("loginLink")
-    loginLink.textContent = "Logout"
+    loginLink.textContent = "logout"
     loginLink.href = "#"
     loginLink.addEventListener("click", (event) => {
         event.preventDefault()

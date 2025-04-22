@@ -59,8 +59,22 @@ boutonAddPics.addEventListener("click", () => {
 
 // fermer la modale du formulaire avec la croix et l'overlay
 
-closeModaleX(modaleAddPics)
 closeModaleOverlay(modaleAddPics)
+
+// Sélecteurs
+const croixModaleAdd = modaleAddPics.querySelector(".close")
+const flecheRetour = modaleAddPics.querySelector(".arrow")
+
+// Clique sur la croix de la modale 2 → ferme les deux
+croixModaleAdd.addEventListener("click", () => {
+    modaleAddPics.style.display = "none"
+    modale.style.display = "none"
+})
+
+// Clique sur la flèche ← → ferme uniquement la modale 2
+flecheRetour.addEventListener("click", () => {
+    modaleAddPics.style.display = "none"
+})
 
 // selectionner une photo pour l'ajouter
 
