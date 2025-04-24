@@ -451,7 +451,7 @@ a:hover {
 	justify-content: center;
 	align-items: center; /* pour centrer horizontalement */
 	text-align: center;
-	padding: 20px;
+	padding: 0px 20px;
 	margin-top: 30px;
 	margin-bottom: 30px;
 	height: 200px;
@@ -479,7 +479,7 @@ a:hover {
 	border: none;
 	border-radius: 60px ;
 	padding: 10px 0px;
-	width: 70%;
+	width: 40%;
 	align-self: center;
 }
 

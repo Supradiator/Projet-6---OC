@@ -294,7 +294,7 @@ function gererValidationFormulaire(projets) {
                     <p>jpg, png : 4mo max</p>
                     <input type="file" id="fileChoosePics" accept="image/*" style="display: none" />
                 `
-                choisirPhoto()  // Réactive le bouton "Ajouter photo"
+                choisirPhoto()
                 verifierChamps()
 
                 // Fermer la modale

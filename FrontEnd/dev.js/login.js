@@ -1,17 +1,17 @@
 // login utilisateur et stockage token en local
 
 document.addEventListener("DOMContentLoaded", () => {
-    const form = document.getElementById("contact");
-    const emailInput = document.getElementById("email");
-    const passwordInput = document.getElementById("password");
+    const form = document.getElementById("contact")
+    const emailInput = document.getElementById("email")
+    const passwordInput = document.getElementById("password")
 
     form.addEventListener("submit", function(event) {
-        event.preventDefault();
+        event.preventDefault()
 
-        const email = emailInput.value;
-        const password = passwordInput.value;
+        const email = emailInput.value
+        const password = passwordInput.value
 
-        console.log("Envoi des identifiants :", email, password);
+        console.log("Envoi des identifiants :", email, password)
 
         fetch("http://localhost:5678/api/users/login", {
             headers: {
@@ -23,32 +23,32 @@ document.addEventListener("DOMContentLoaded", () => {
         })
         .then(response => response.json())
         .then(data => {
-            console.log("Données reçues :", data);
+            console.log("Données reçues :", data)
 
             // Nettoyer l'état précédent
-            emailInput.classList.remove("input-error");
-            passwordInput.classList.remove("input-error");
-            emailInput.placeholder = "Email";
-            passwordInput.placeholder = "Mot de passe";
+            emailInput.classList.remove("input-error")
+            passwordInput.classList.remove("input-error")
+            emailInput.placeholder = "Email"
+            passwordInput.placeholder = "Mot de passe"
 
             if (data.token) {
-                localStorage.setItem("token", data.token);
-                window.location.href = "index.html";
+                localStorage.setItem("token", data.token)
+                window.location.href = "index.html"
             } else {
                 // Affichage d'un message d'erreur dans les placeholders
-                emailInput.value = "";
-                passwordInput.value = "";
+                emailInput.value = ""
+                passwordInput.value = ""
 
-                emailInput.placeholder = "Email ou mot de passe incorrect";
-                passwordInput.placeholder = "Email ou mot de passe incorrect";
+                emailInput.placeholder = "Email ou mot de passe incorrect"
+                passwordInput.placeholder = "Email ou mot de passe incorrect"
 
-                emailInput.classList.add("input-error");
-                passwordInput.classList.add("input-error");
+                emailInput.classList.add("input-error")
+                passwordInput.classList.add("input-error")
             }
         })
         .catch(error => {
-            console.error("Erreur :", error);
-        });
-    });
-});
+            console.error("Erreur :", error)
+        })
+    })
+})
 
