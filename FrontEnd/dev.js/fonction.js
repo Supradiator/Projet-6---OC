@@ -180,6 +180,16 @@ function closeModaleOverlay(modale) {
     })
 }
 
+function closeModaleFormOverlay(modale) {
+    const modaleContent = document.querySelector(".modaleAddPics")
+    modale.addEventListener("click", (event) => {
+        if (event.target === modale) {
+            modale.style.display = "none"
+        }
+        resetForm()
+    })
+}
+
 function choisirPhoto() {
     const fileInput = document.getElementById("fileChoosePics")
     const customButton = document.getElementById("btnChoosePics")
@@ -286,15 +296,7 @@ function gererValidationFormulaire(projets) {
                 afficherProjets(projets)
                 afficherGalleryEdition(projets)
 
-                // Reset du formulaire + aperçu + bouton
-                form.reset()
-                document.querySelector(".addPics").innerHTML = `
-                    <i class="fa-regular fa-image"></i>
-                    <button id="btnChoosePics">+ Ajouter photo</button>
-                    <p>jpg, png : 4mo max</p>
-                    <input type="file" id="fileChoosePics" accept="image/*" style="display: none" />
-                `
-                choisirPhoto()
+                resetForm()
                 verifierChamps()
 
                 // Fermer la modale
@@ -310,4 +312,15 @@ function gererValidationFormulaire(projets) {
     })
 }
 
-export {afficherProjets, afficherBoutons, filtrerProjets, btnSelectionne, afficherInterfaceDeconnectee, afficherInterfaceConnectee, afficherGalleryEdition, closeModaleX, closeModaleOverlay, choisirPhoto, CategoryOptions, gererValidationFormulaire}
+function resetForm() {
+    document.querySelector(".formAddPics").reset()
+    document.querySelector(".addPics").innerHTML = `
+    <i class="fa-regular fa-image"></i>
+    <button id="btnChoosePics">+ Ajouter photo</button>
+    <p>jpg, png : 4mo max</p>
+    <input type="file" id="fileChoosePics" accept="image/*" style="display: none" />
+    `
+    choisirPhoto()
+}
+
+export {afficherProjets,closeModaleFormOverlay, resetForm, afficherBoutons, filtrerProjets, btnSelectionne, afficherInterfaceDeconnectee, afficherInterfaceConnectee, afficherGalleryEdition, closeModaleX, closeModaleOverlay, choisirPhoto, CategoryOptions, gererValidationFormulaire}

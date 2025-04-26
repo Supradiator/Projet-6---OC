@@ -1,12 +1,12 @@
 
 //importation des fonctions 
-import { afficherProjets, afficherBoutons, afficherInterfaceDeconnectee, afficherInterfaceConnectee, afficherGalleryEdition, closeModaleX, closeModaleOverlay, choisirPhoto, CategoryOptions, gererValidationFormulaire } from "./fonction.js"
+import { afficherProjets,closeModaleFormOverlay, resetForm, afficherBoutons, afficherInterfaceDeconnectee, afficherInterfaceConnectee, afficherGalleryEdition, closeModaleX, closeModaleOverlay, choisirPhoto, CategoryOptions, gererValidationFormulaire } from "./fonction.js"
 import { fetchProjets, fetchCategory } from "./api.js"
 
 //recup des donnes de l'api et affichage des projets
 
 let projets = await fetchProjets()
-async function majProjets(id) {
+    function majProjets(id) {
     projets = projets.filter((projet) => projet.id !== id)
     afficherProjets(projets)
     afficherGalleryEdition(projets)
@@ -59,7 +59,7 @@ boutonAddPics.addEventListener("click", () => {
 
 // fermer la modale du formulaire avec la croix et l'overlay
 
-closeModaleOverlay(modaleAddPics)
+closeModaleFormOverlay(modaleAddPics)
 
 // Sélecteurs
 const croixModaleAdd = modaleAddPics.querySelector(".close")
@@ -69,11 +69,13 @@ const flecheRetour = modaleAddPics.querySelector(".arrow")
 croixModaleAdd.addEventListener("click", () => {
     modaleAddPics.style.display = "none"
     modale.style.display = "none"
+    resetForm()
 })
 
 // Clique sur la flèche ← → ferme uniquement la modale 2
 flecheRetour.addEventListener("click", () => {
     modaleAddPics.style.display = "none"
+    resetForm()
 })
 
 // selectionner une photo pour l'ajouter
