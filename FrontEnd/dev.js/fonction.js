@@ -185,8 +185,8 @@ function closeModaleFormOverlay(modale) {
     modale.addEventListener("click", (event) => {
         if (event.target === modale) {
             modale.style.display = "none"
+            resetForm()
         }
-        resetForm()
     })
 }
 
